@@ -20,9 +20,9 @@ x2 = linspace(min(Prom), max(Prom), GS);
 
 [x1grid, x2grid] = meshgrid(x1,x2);
 X0 = [x1grid(:), x2grid(:)];
-P0 = log_prob(X0, bHat);
+P0 = tools.log_prob(X0, bHat);
 P = reshape(P0, [GS GS]);
-P1 = log_prob(X, bHat);
+P1 = tools.log_prob(X, bHat);
 
 figure(3)
 clf
