@@ -2,3 +2,5 @@
 .exp*
 Contact-Sensor-Data/
 exp*.m
+Contact-Sensor-Data_2020/
+.gitignore
