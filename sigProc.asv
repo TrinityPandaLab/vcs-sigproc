@@ -2,17 +2,21 @@ classdef sigProc
     
     properties
 %         time
-%         tran
         freq
+%         tran
         dft
         Fs
     end
     
     methods
         function obj = sigProc(filename, fs)
+            obj.Fs  = fs; 
+            
             % Extraction of data from the filename
             T = readmatrix(filename);
-            N = size(T,1);
+            time = T(:,1);     % time
+            
+            freq = 0:fs/N:fs/2;
             
             tran = T(:,2:4);
             tran(:,4) = sqrt(T(:,2).^2 + T(:,3).^2);
@@ -22,20 +26,16 @@ classdef sigProc
           
             % Getting Fourier Tranform
             dft = abs(fft(tran));
+            N = size(dft,1);
             dft = dft(1:N/2+1,:);
             
-            % Saving data in object
-            obj.Fs  = fs; 
-            
-%             % Saving the transient sig
-%             obj.time = T(:,1)
+            % Saving the transient sig
 %             obj.tran.x = tran(:, 1);
 %             obj.tran.x = tran(:, 2);
 %             obj.tran.x = tran(:, 3);
 %             obj.tran.r = tran(:, 4);
-
-            % Saving the frequency domain
-            obj.freq = 0:fs/N:fs/2;
+            
+            % Saving the dft
             obj.dft.x = dft(:, 1);
             obj.dft.y = dft(:, 2);
             obj.dft.z = dft(:, 3);

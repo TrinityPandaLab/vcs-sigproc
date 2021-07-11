@@ -1,1 +1,4 @@
 .asv
+.exp*
+Contact-Sensor-Data/
+exp*.m
