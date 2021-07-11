@@ -1,4 +1,5 @@
 clc, clear,clf
+% this scripts does the unsupervised training
 load ('nicest.mat', 'res0', 'res1', 'res2');
 
 res = [res0;res1;res2];

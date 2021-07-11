@@ -1,7 +1,6 @@
 classdef sigProc
     
     properties
-        T
         time
         freq
         tran
@@ -11,7 +10,6 @@ classdef sigProc
     
     methods
         function obj = sigProc(filename, fs)
-            
             obj.Fs  = fs; 
             
             % Extraction of data from the filename
@@ -32,13 +30,30 @@ classdef sigProc
             obj.tran.x = tran(:, 1);
             obj.tran.x = tran(:, 2);
             obj.tran.x = tran(:, 3);
-            obj.tran.r = sqrt(obj.tran.x.^2+obj.tran.y.^2);
+%             obj.tran.r = sqrt(obj.tran.x.^2+obj.tran.y.^2);
             
             % Saving the dft
             obj.dft.x = dft(:, 1);
             obj.dft.y = dft(:, 2);
             obj.dft.z = dft(:, 3);
         end
+        
+        function [freq, dft] = fftat(obj, range)
+            % Gets the fft for certain range of frequency
+            [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
+        end
+        
+        function plotdft(obj, dimension)
+            % Plots the dft for one dimension
+            if dimension == 'x'
+                plot(obj.freq, obj.dft.x)
+            elseif dimension == 'y'
+                plot(obj.freq, obj.dft.y)
+            elseif dimension == 'z'
+                plot(obj.freq, obj.dft.z)
+            end         
+        end
+        
     end
     
     methods (Access = private)
