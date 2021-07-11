@@ -43,6 +43,16 @@ classdef sigProc
             [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, threshold);
         end
         
+        function plotdft(obj, dimension)
+            if dimension == 'x'
+                plot(obj.freq, obj.dft.x)
+            elseif dimension == 'y'
+                plot(obj.freq, obj.dft.y)
+            elseif dimension == 'z'
+                plot(obj.freq, obj.dft.z)
+            end         
+        end
+        
     end
     
     methods (Access = private)

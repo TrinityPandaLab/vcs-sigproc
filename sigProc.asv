@@ -1,7 +1,6 @@
 classdef sigProc
     
     properties
-        T
         time
         freq
         tran
@@ -32,7 +31,7 @@ classdef sigProc
             obj.tran.x = tran(:, 1);
             obj.tran.x = tran(:, 2);
             obj.tran.x = tran(:, 3);
-            obj.tran.r = sqrt(obj.tran.x.^2+obj.tran.y.^2);
+%             obj.tran.r = sqrt(obj.tran.x.^2+obj.tran.y.^2);
             
             % Saving the dft
             obj.dft.x = dft(:, 1);
@@ -40,8 +39,18 @@ classdef sigProc
             obj.dft.z = dft(:, 3);
         end
         
-        function [freq, dft] = fftat(obj, threshold, mode)
-            if mode =
+        function [freq, dft] = fftat(obj, threshold)
+            [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, threshold);
+        end
+        
+        function plotdft(obj, dimension)
+            if dimension == 'x'
+                plot(obj.freq, obj.dft.x)
+            elseif dimension == 'y'
+                plot(obj.freq, obj.dft.y)
+            elseif dimension == 'z'
+                plot(obj.freq, obj.dft.z)
+            end         
         end
         
     end

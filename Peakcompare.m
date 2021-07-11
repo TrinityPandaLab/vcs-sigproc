@@ -6,9 +6,9 @@ str1 = 'ContactSensorData/*_1_1.5_*b21.csv';
 str2 = 'ContactSensorData/*_2_1.5_*b02.csv';
 range = [0 100];
 
-res0 = peakcomp(str0, range);
-res1 = peakcomp(str1, range);
-res2 = peakcomp(str2, range);
+res0 = freq_prom(str0, range);
+res1 = freq_prom(str1, range);
+res2 = freq_prom(str2, range);
 
 %% Plot
 
