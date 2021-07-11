@@ -23,13 +23,11 @@ classdef tools
             zdft = zdft(1:end);
         end
         
-        function [freq, dft] = cutoffat(freq, dft, threshold)
-        % Splice the dft data for given frequency(ies)
-        % Mode 0 - get right side of thereshold
-        % Mode 1 - get left side of thereshold
-        % Mode 2 - get dft for freq between of theresholds
-            index_1 = find(freq > threshold(1), 1);
-            index_2 = find(freq > threshold(2), 1);
+        function [freq, dft] = cutoffat(freq, dft, range|)
+        % Splice the dft data for given frequencies
+        % get dft for freq between of theresholds
+            index_1 = find(freq > range(1), 1);
+            index_2 = find(freq > range(2), 1);
             freq = freq(index_1:index_2);
             dft = dft(index_1:index_2);
         end

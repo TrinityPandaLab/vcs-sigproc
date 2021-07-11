@@ -6,7 +6,7 @@ function res = freq_prom(in_str, range)
         filename = strcat('Contact-Sensor-Data/' , filename);
         obj = sigProc(filename, 800);
         
-        [zfreq, prominence] = freqatpeak(obj);
+        [zfreq, prominence] = freqatpeak(obj, range);
 %         [zfreq, prominence] = freqatpeak(obj, range);
         res(ii,:) = [zfreq, prominence];
     end

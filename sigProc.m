@@ -10,7 +10,6 @@ classdef sigProc
     
     methods
         function obj = sigProc(filename, fs)
-            
             obj.Fs  = fs; 
             
             % Extraction of data from the filename
@@ -39,11 +38,13 @@ classdef sigProc
             obj.dft.z = dft(:, 3);
         end
         
-        function [freq, dft] = fftat(obj, threshold)
-            [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, threshold);
+        function [freq, dft] = fftat(obj, range)
+            % Gets the fft for certain range of frequency
+            [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
         end
         
         function plotdft(obj, dimension)
+            % Plots the dft for one dimension
             if dimension == 'x'
                 plot(obj.freq, obj.dft.x)
             elseif dimension == 'y'
