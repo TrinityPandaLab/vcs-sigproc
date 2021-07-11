@@ -32,6 +32,7 @@ classdef sigProc
             obj.tran.x = tran(:, 1);
             obj.tran.x = tran(:, 2);
             obj.tran.x = tran(:, 3);
+            obj.tran.r = sqrt(obj.tran.x.^2+obj.tran.y.^2);
             
             % Saving the dft
             obj.dft.x = dft(:, 1);
