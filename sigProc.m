@@ -39,6 +39,8 @@ classdef sigProc
             obj.dft.y = dft(:, 2);
             obj.dft.z = dft(:, 3);
         end
+        
+        function fftat(obj, thresholds)
     end
     
     methods (Access = private)

@@ -1,8 +1,6 @@
 function res = peakcomp(in_str, range)
-    d = dir(in_str);
-    first_file = d(1).name;
-    last_file = d(end).name;
     
+    d = dir(in_str);
     for ii = 1:size(d,1)
         filename = d(ii).name;
         filename = strcat('ContactSensorData/' , filename);

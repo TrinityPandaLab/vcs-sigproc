@@ -1,4 +1,5 @@
 clc, clear, clf
+% This scripts does the logistic classification
 T = readmatrix("result12_log.csv");
 
 Freq = normalize(T(:,1));

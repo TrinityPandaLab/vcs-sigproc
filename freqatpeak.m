@@ -17,7 +17,7 @@ function [zfreq, prominence] = freqatpeak(T, threshold)
     zdft = abs(zdft);
     
     if nargin == 2
-        [freq, zdft] = cutoffat(freq,zdft,threshold, 2);
+        [freq, zdft] = tools.cutoffat(freq,zdft,threshold, 2);
     end
     
     [zmax, ind_zmax] = max(abs(zdft));

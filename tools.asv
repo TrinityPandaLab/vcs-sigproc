@@ -23,7 +23,7 @@ classdef tools
             zdft = zdft(1:end);
         end
         
-        function [freq, dft] = cutoffat(freq, dft, threshold)
+        function [freq, dft] = cutoffat(freq, dft, threshold, mode)
         % Splice the dft data for given frequency(ies)
         % Mode 0 - get right side of thereshold
         % Mode 1 - get left side of thereshold
