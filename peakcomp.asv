@@ -4,10 +4,10 @@ function res = peakcomp(in_str, range)
     for ii = 1:size(d,1)
         filename = d(ii).name;
         filename = strcat('ContactSensorData/' , filename);
-        obj = sigProc(filename, 800);
+        objj = sigProc(filename, )
+        T = readmatrix(filename);
         
-        
-        [zfreq, prominence] = freqatpeak(obj, range);
+        [zfreq, prominence] = freqatpeak(T, range);
         res(ii,:) = [zfreq, prominence];
     end
 end
