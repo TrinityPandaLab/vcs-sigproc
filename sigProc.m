@@ -54,34 +54,33 @@ classdef sigProc
                     [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
                 elseif (dmsn == 'z')    
                     [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
-                elseif (dmnsn == 'r')
+                elseif (dmsn == 'r')
                     [freq, dft] = tools.cutoffat(obj.freq, obj.dft.r, range);
                 end
             end
         end
         
-        function plotdft(obj, dimension)
+        function plotdft(obj, dmsn)
             % Plots the dft for one dimension
-            if dimension == 'x'
+            if dmsn == 'x'
                 plot(obj.freq, obj.dft.x)
-            elseif dimension == 'y'
+            elseif dmsn == 'y'
                 plot(obj.freq, obj.dft.y)
-            elseif dimension == 'z'
+            elseif dmsn == 'z'
                 plot(obj.freq, obj.dft.z)
-            elseif dimension == 'r'
+            elseif dmsn == 'r'
                 plot(obj.freq, obj.dft.r)
             end         
         end
         
-        function [freq, prominence] = freqatpeak(obj, range)
+        function [freq, prominence] = freqatpeak(obj, range, dmsn)
         % Finds the peak frequency and it's promince between the range
-            narginchk(1,2);
+            narginchk(2,3);
 
-            if nargin == 2
-                [freq, ft] = obj.fftat(range);
+            if nargin == 3
+                [freq, ft] = obj.fftat(range, dmsn);
             else
-                freq = obj.freq;
-                ft = obj.dft.z;
+                [freq, ft] = obj.fftat(range);
             end
 
             [zmax, ind_zmax] = max(ft);
