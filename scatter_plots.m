@@ -1,4 +1,4 @@
-clc, clear
+    clc, clear
 load("nicest.mat");
 
 res = [res0;res1;res2];

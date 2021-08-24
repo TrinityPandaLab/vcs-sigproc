@@ -26,10 +26,14 @@ classdef tools
         function [x1, x2] = cutoffat(x1, x2, range)
         % Splice the dft data for given frequencies
         % get dft for freq between of theresholds
-            index_1 = find(x1 > range(1), 1);
-            index_2 = find(x1 > range(2), 1);
-            x1 = x1(index_1:index_2);
-            x2 = x2(index_1:index_2);
+            if x1(1) == range(1) && x1(end) == range(2)
+                
+            else
+                index_1 = find(x1 > range(1)| x1 == range(1), 1);
+                index_2 = find(x1 > range(2)| x1 == range(2), 1);
+                x1 = x1(index_1:index_2);
+                x2 = x2(index_1:index_2);
+            end
         end
         
         function [x1, prominence] = x1_atpeak_x2(x1, x2, range)
@@ -45,6 +49,19 @@ classdef tools
 
             minimum = max(x2(1), x2(end));
             prominence = x2max - minimum;
+        end
+        
+        function csvtowav(filename, outfile, fs)
+            % Extraction of data from the filename
+            T = readmatrix(filename);
+            tran = T(:,2:4);
+            tran(:,4) = sqrt(T(:,2).^2 + T(:,3).^2);
+            
+            % Getting rid of the offset
+            tran = tran - mean(tran);
+            tran = tran./max(abs(min(tran)), max(tran));
+            
+            audiowrite(outfile, tran, fs);
         end
     end
 end

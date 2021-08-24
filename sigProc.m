@@ -19,6 +19,9 @@ classdef sigProc
             
             % Getting rid of the offset
             tran = tran - mean(tran);
+            
+            % Linear Normalize?
+            
           
             % Getting Fourier Tranform
             dft = abs(fft(tran));
@@ -42,53 +45,46 @@ classdef sigProc
             obj.dft.r = dft(:, 4);
         end
         
-        function [freq, dft] = fftat(obj, range, dmsn)
+        function [sfreq, sdft] = fftat(obj, range, dmsn)
             narginchk(2,3)
             if nargin == 2
             % Gets the fft for certain range of frequency
-                [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
+                [sfreq, sdft] = tools.cutoffat(obj.freq, obj.dft.z, range);
             else
                 if (dmsn == 'x')
-                    [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
+                    [sfreq, sdft] = tools.cutoffat(obj.freq, obj.dft.x, range);
                 elseif (dmsn == 'y')
-                    [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
+                    [sfreq, sdft] = tools.cutoffat(obj.freq, obj.dft.y, range);
                 elseif (dmsn == 'z')    
-                    [freq, dft] = tools.cutoffat(obj.freq, obj.dft.z, range);
-                elseif (dmsn == 'r')
-                    [freq, dft] = tools.cutoffat(obj.freq, obj.dft.r, range);
+                    [sfreq, sdft] = tools.cutoffat(obj.freq, obj.dft.z, range);
+                elseif (dmnsn == 'r')
+                    [sfreq, sdft] = tools.cutoffat(obj.freq, obj.dft.r, range);
                 end
             end
         end
         
-        function plotdft(obj, dmsn)
-            % Plots the dft for one dimension
-            if dmsn == 'x'
-                plot(obj.freq, obj.dft.x)
-            elseif dmsn == 'y'
-                plot(obj.freq, obj.dft.y)
-            elseif dmsn == 'z'
-                plot(obj.freq, obj.dft.z)
-            elseif dmsn == 'r'
-                plot(obj.freq, obj.dft.r)
-            end         
+        function plotdft(obj, range, dmsn)
+            [sfreq, sdft] = fftat(obj, range, dmsn);
+            plot(sfreq, sdft);
         end
         
         function [freq, prominence] = freqatpeak(obj, range, dmsn)
         % Finds the peak frequency and it's promince between the range
             narginchk(2,3);
 
-            if nargin == 3
-                [freq, ft] = obj.fftat(range, dmsn);
-            else
+            if nargin == 2
                 [freq, ft] = obj.fftat(range);
+            else
+                [freq, ft] = obj.fftat(range, dmsn);
             end
 
-            [zmax, ind_zmax] = max(ft);
-            freq = freq(ind_zmax);
+            [val_max, ind_max] = max(ft);
+            freq = freq(ind_max);
 
+%             Read refinement
         %     minimum = max([min(zdft(1:ind_zmax)), min(zdft(ind_zmax:end))]);
             minimum = max(ft(1), ft(end));
-            prominence = zmax - minimum;
+            prominence = val_max - minimum;
         end
         
     end

@@ -1,6 +1,7 @@
 .asv
 .exp*
 Contact-Sensor-Data/
+Contact-Sensor-Data-wav/
 exp*.m
 Contact-Sensor-Data_2020/
 .gitignore
