@@ -59,7 +59,8 @@ classdef tools
             
             % Getting rid of the offset
             tran = tran - mean(tran);
-            tran = tran./max(abs(min(tran)), max(tran));
+            maximum = max(max(abs(min(tran)), max(tran)));
+            tran = tran./maximum;
             
             audiowrite(outfile, tran, fs);
         end

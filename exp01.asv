@@ -30,7 +30,19 @@ for filenum = 1:100
 end
 clear coeffs audioIn filenum section filelist file filepath
 
+%% Histogram of coefficients
+% nbins = 30;
+% coefficientToAnalyze = 12;
+% filenum = 10;
+% figure(filenum)
+% clf
+% for ii = 1:6
+%     subplot(2,3,ii)
+%     histogram(output{filenum, ii}(:,coefficientToAnalyze+1),nbins,"Normalization","pdf")
+% end
+
 %% Averanger and Normalizer
+clear outav
 for section = 1:6
     for filenum = 1:100
         fileid = 100 * (section-1) + filenum;
@@ -41,17 +53,21 @@ avngr(:,3:end) = normalize(avngr(:,3:end),1);
 clear filenum fileid section
 
 %% Stratify
-for section = 1:6
-    outav(:,section, :) = avngr(avngr(:,2) == section,3:end);
+section = avngr()
+for sec = 1:6
+    outav(:,sec, :) = avngr(se);
 end
+
 clear filenum section
 
-featav(:,:) = mean(outav);
-featsd(:,:) = std(outav);
+
+fors
+
+% featav(:,:) = mean(outav);
+% featsd(:,:) = std(outav);
 
 
 %% Ciplot
-clf
 for section = 1:6
     res{section} = [coeffNum(:), featav(section,:)', featsd(section,:)'];
 end
@@ -61,13 +77,13 @@ scatter_plots_err(res)
 %% Scatter
 coeffNum = 1:14;
 sp = 1;
-for filenum = 1:5
+for filenum = 1
 %     subplot(2,3, sp)
     figh = figure(sp);
     clf
-    feat(:,:) = outav(filenum,:,:);
+    feat(:,:) = avngr(filenum,:,:);
     for ii = 1:6
-        res{ii} = [coeffNum(:), feat(ii, coeffNum)'];
+        res{ii} = [coeffNum(:), feat(ii, :)'];
     end
     scatter_plots(res)
     sp = sp + 1;
