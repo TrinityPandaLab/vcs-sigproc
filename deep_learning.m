@@ -1,9 +1,15 @@
-%%
-% clear, clc
-% load deepTest.mat
+%
+clear, clc
+load deepTest.mat
 
 %% Contruct Layer
-
+layers_1 = [ ...
+       sequenceInputLayer(15)
+       lstmLayer(100)
+       fullyConnectedLayer(6)
+       softmaxLayer
+       classificationLayer];
+   
 
 %% Training Option
 miniBatchSize = 27;
@@ -18,7 +24,7 @@ options = trainingOptions('adam', ...
     'Plots','training-progress');
 
 %% Train
-net = trainNetwork(XTrain,YTrain,layers_1,options);
+net = trainNetwork(XTrain,YTrain,layers_2,options);
 
 %% Predict
 YPred = classify(net,XValidation);

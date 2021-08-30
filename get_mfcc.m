@@ -1,0 +1,67 @@
+%% File Extraction
+clear, clc
+load fileswav
+
+%% Get MFCC
+for filenum = 1:150
+    for section = 1:6
+        filelist = files{section};
+        file = filelist(filenum);
+        filepath = file.folder+"/"+file.name;
+        [audioIn,fs] = audioread(filepath);
+        coeffs = mfcc(audioIn,fs);
+        output{filenum, section} = coeffs(:,:,3);
+    end
+end
+
+%%clear coeffs audioIn filenum section filelist file filepath
+
+%% Averanger and Normalizer
+clear
+load output
+for section = 1:6
+    for filenum = 1:150
+        fileid = 150 * (section-1) + filenum;
+        avg14(fileid,:) = [filenum, section, mean(output{filenum, section})];
+    end
+end
+avg14(:,3:end) = normalize(avg14(:,3:end),1);
+clear filenum fileid section
+
+%% Stratify
+for section = 1:6
+    outav(:,section, :) = avg14(avg14(:,2) == section,3:end);
+end
+clear filenum section
+
+%% Get Average of features
+featav(:,:) = mean(outav);
+featsd(:,:) = std(outav);
+% save mfccfeat
+
+
+%% ErrPlot
+load feats
+clf
+coeffNum = 1:14;
+for section = 1:6
+    res{section} = [coeffNum(:), featav(section,coeffNum)', featsd(section,coeffNum)'];
+end
+scatter_plots(res, 0)
+
+
+%% Scatter
+% coeffNum = 1:14;
+% sp = 1;
+% for filenum = 1
+% %     subplot(2,3, sp)
+%     figh = figure(sp);
+%     clf
+%     feat(:,:) = outav(filenum,:,:);
+%     for ii = 1:6
+%         res{ii} = [coeffNum(:), feat(ii, coeffNum)'];
+%     end
+%     scatter_plots(res)
+%     sp = sp + 1;
+% end
+% clear feat
