@@ -13,26 +13,35 @@ end
 clear filenum fileid section files obj output
 save featmat
 
-%% Normalize and partition
+%% Normalize 
+clear, clc
 load featmat
 X = normalize(featmat(:,3:end));
 Y = featmat(:,2);
+fn = featmat(:,1);
+indices = randperm(150,150);
+save deepTest
 
-% Split data by file num
-train_index = featmat(:,1)> 0 & featmat(:,1)<101;
-test_index = train_index == 0;
+%% Split data by file num
+clear, clc
+load deepTest
+clear XTrain YTrain XValidation YValidation
+
+test_index = ismember(fn,indices(121:135));
+train_index = test_index == 0;
 
 Xtrain = X(train_index,:);
+YTrain = categorical(Y(train_index));
+Xval = X(test_index,:);
+YValidation = categorical(Y(test_index));
+
 for ii = 1:size(Xtrain,1)
     XTrain{ii} = Xtrain(ii,:)';
 end
-YTrain = categorical(Y(train_index));
 
-Xval = X(test_index,:);
 for ii = 1:size(Xval,1)
     XValidation{ii} = Xval(ii,:)';
 end
-YValidation = categorical(Y(test_index));
 
-clear filenum fileid section train_index test_index outmat X Y Xval Xtrain ii featmat
+clear Xval Xtrain ii featmat
 save deepTest
