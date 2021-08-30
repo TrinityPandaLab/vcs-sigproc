@@ -1,8 +1,8 @@
 classdef sigProc
     
     properties
-%         time
-%         tran
+        time
+        tran
         freq
         dft
         Fs
@@ -15,13 +15,16 @@ classdef sigProc
             N = size(T,1);
             
             tran = T(:,2:4);
-            tran(:,4) = sqrt(T(:,2).^2 + T(:,3).^2);
-            
             % Getting rid of the offset
             tran = tran - mean(tran);
             
-            % Linear Normalize?
+            % Linear Normalize
+            maximum = max(max(abs(min(tran)), max(tran)));
+            tran = tran./maximum;
             
+            %R = vector sum of X and Y
+            tran(:,4) = sqrt(T(:,2).^2 + T(:,3).^2);
+                       
           
             % Getting Fourier Tranform
             dft = abs(fft(tran));
@@ -30,12 +33,12 @@ classdef sigProc
             % Saving data in object
             obj.Fs  = fs; 
             
-%             % Saving the transient sig
-%             obj.time = T(:,1)
-%             obj.tran.x = tran(:, 1);
-%             obj.tran.x = tran(:, 2);
-%             obj.tran.x = tran(:, 3);
-%             obj.tran.r = tran(:, 4);
+            % Saving the transient sig
+            obj.time = T(:,1);
+            obj.tran.x = tran(:, 1);
+            obj.tran.y = tran(:, 2);
+            obj.tran.z = tran(:, 3);
+            obj.tran.r = tran(:, 4);
 
             % Saving the frequency domain
             obj.freq = 0:fs/N:fs/2;

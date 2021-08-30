@@ -1,9 +1,8 @@
-function res = freq_prom(in_str, range)
+function res = freq_prom(dirr, range)
     % Creates vector of max_freq and the prominence
-    d = dir(in_str);
     
-    for ii = 1:size(d,1)
-        filename = d(ii).folder + "/" + d(ii).name;
+    for ii = 1:size(dirr,1)
+        filename = dirr(ii).folder + "/" + dirr(ii).name;
         obj = sigProc(filename, 3200);
         
         [zfreq, prominence] = obj.freqatpeak(range);

@@ -3,6 +3,7 @@ clc, clear,clf
 load ('nicest.mat', 'res0', 'res1', 'res2');
 
 res = [res0;res1;res2];
+%%
 res(:,1) = normalize(res(:,1));
 res(:,2) = normalize(res(:,2));
 X = res(:,1:2);
@@ -13,7 +14,7 @@ list_section = [1 2 0];
 section = res(:,3);
 
 rng(3);
-k = 3; % Number of GMM components
+k = 6; % Number of GMM components
 options = statset('MaxIter',1000);
 
 d = 500; % Grid length
@@ -21,7 +22,7 @@ x1 = linspace(min(X(:,1))-2, max(X(:,1))+2, d);
 x2 = linspace(min(X(:,2))-2, max(X(:,2))+2, d);
 [x1grid,x2grid] = meshgrid(x1,x2);
 X0 = [x1grid(:) x2grid(:)];
-
+%%
 % threshold = sqrt(chi2inv(0.999,2));
 
 gmfit = fitgmdist(X,k,'CovarianceType','diagonal','SharedCovariance',false,'Options',options); % Fitted GMM
