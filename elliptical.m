@@ -1,20 +1,19 @@
-%% Summary
+%% Get Sumamry of RMS
 clc, clear
 load obj
 
-%% Get RMS
 for section = 1:6
     for filenum = 1:100
         zt(filenum) = sqrt(sum(obj{filenum,section}.tran.z.^2));
         yt(filenum) = sqrt(sum(obj{filenum,section}.tran.y.^2));
     end
     res{section} = [yt(:), zt(:)];
-    angg(section,:) = atan2(zt, yt);
+    angg(:,section) = atan2(zt, yt);
 end
-angg = reshape(normalize(angg(:)),6,[]);
+angg = reshape(normalize(angg(:)),[],6);
 
-angav = mean(angg, 2);
-angsd = std(angg, 0,2);
+angav = mean(angg);
+angsd = std(angg);
 
 for ii = 1:6
     res{ii} = [1, angav(ii), angsd(ii)];
@@ -23,8 +22,9 @@ end
 scatter_plots(res,0);
 clear filenum section
 
-%%
-clf
+%% Plot the elliptical signal
+% clear, clc
+% load obj
 sp = 1;
 for filenum = 20
     

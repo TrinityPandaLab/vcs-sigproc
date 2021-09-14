@@ -25,7 +25,7 @@ for section = 1:6
         avg14(fileid,:) = [filenum, section, mean(output{filenum, section})];
     end
 end
-avg14(:,3:end) = normalize(avg14(:,3:end),1);
+avg14(:,3:end) = normalize(avg14(:,3:end));
 clear filenum fileid section
 
 %% Stratify
@@ -39,16 +39,6 @@ featav(:,:) = mean(outav);
 featsd(:,:) = std(outav);
 % save feat_summary
 
-
-%% ErrPlot
-clc, clear
-load feat_summary
-clf
-coeffNum = 1:14;
-for section = 1:6
-    res{section} = [coeffNum(:), featav(section,coeffNum)', featsd(section,coeffNum)'];
-end
-sc = scatter_plots(res, 0);
 
 %% Plot the feats
 load output_mfcc

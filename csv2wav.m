@@ -1,4 +1,4 @@
-% Batch convert csv to wav
+% Batch convert csv to wav for MFCC
 clear, clc
 
 str = 'Contact-Sensor-Data/*.csv';

@@ -1,6 +1,6 @@
 %
 clear, clc
-load deepTest2
+load deepTest
 
 %% Contruct Layer
 numHiddenUnits = 100;
