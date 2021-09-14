@@ -1,4 +1,4 @@
-%% File Extraction
+% File Extraction
 clear, clc
 load files
 

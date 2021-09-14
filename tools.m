@@ -1,12 +1,5 @@
 classdef tools
-    methods(Static)
-        
-        function output = log_prob(z, bHat)
-        % Logarithmic Fit, logit function
-            b = 1.5;
-            output = (b.^(bHat(1)+ bHat(2).*z(:,1)+ bHat(3).*z(:,2)))./(1 + b.^(bHat(1) + bHat(2).*z(:,1)+ bHat(3).*z(:,2)));
-        end
-        
+    methods(Static)       
         function [freq, dft] = dft(sig, Fs)
         % Static DFT function
             % Getting rid of the offset
