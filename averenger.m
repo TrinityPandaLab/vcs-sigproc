@@ -14,7 +14,7 @@ clear fn section filelist filename
 save obj
 
 %% Get Average
-clear clc
+clear, clc
 load obj
 for section = 1:6
     count = 1;
@@ -25,9 +25,13 @@ for section = 1:6
     avgfft{section} = mean(zdft);
     stdfft{section} = std(zdft);
 end
-clear count section
+clear count section zdft files obj filenum
+save averenger
 
 %% Plot
+
+clear, clc
+load averenger
 range = [0 1600];
 
 load colorcode

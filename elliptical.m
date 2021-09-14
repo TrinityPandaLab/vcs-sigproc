@@ -4,7 +4,6 @@ load obj
 
 %% Get RMS
 for section = 1:6
-    clear zdft
     for filenum = 1:100
         zt(filenum) = sqrt(sum(obj{filenum,section}.tran.z.^2));
         yt(filenum) = sqrt(sum(obj{filenum,section}.tran.y.^2));

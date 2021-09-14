@@ -14,5 +14,5 @@ function scah = scatter_plots(res, ~)
             hold on 
         end
     end
-    legend(scah, "Section " + string((1:numel(res))-1))
+    legend(scah, "R" + string((1:numel(res))-1), "Location", "Southwest")
 end

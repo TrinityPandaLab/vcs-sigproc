@@ -14,11 +14,12 @@ for filenum = 1:150
     end
 end
 
-%%clear coeffs audioIn filenum section filelist file filepath
+% save("output_mfcc.mat", "output")
+% clear coeffs audioIn filenum section filelist file filepath
 
 %% Averanger and Normalizer
-clear
-load output
+clear, clc
+load output_mfcc
 for section = 1:6
     for filenum = 1:150
         fileid = 150 * (section-1) + filenum;
@@ -41,13 +42,14 @@ featsd(:,:) = std(outav);
 
 
 %% ErrPlot
-load feats
+clc, clear
+load feat_summary
 clf
 coeffNum = 1:14;
 for section = 1:6
     res{section} = [coeffNum(:), featav(section,coeffNum)', featsd(section,coeffNum)'];
 end
-scatter_plots(res, 0)
+sc = scatter_plots(res, 0);
 
 
 %% Scatter
@@ -65,3 +67,15 @@ scatter_plots(res, 0)
 %     sp = sp + 1;
 % end
 % clear feat
+
+
+%% Plot the feats
+load output_mfcc
+for fn = 1
+    figure(fn)
+    clf
+    for section = 1:6
+        subplot(2,3, section)
+        plot(1:98, output{fn,section})
+    end
+end

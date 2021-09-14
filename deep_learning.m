@@ -1,20 +1,21 @@
 %
 clear, clc
-load deepTest
+load deepTest2
 
 %% Contruct Layer
 numHiddenUnits = 100;
 
 layers_1 = [ ...
-       sequenceInputLayer(15)
+       sequenceInputLayer(5)
        bilstmLayer(numHiddenUnits,'OutputMode','last')
        fullyConnectedLayer(6)
        softmaxLayer
        classificationLayer];
-   
+
+
 
 %% Training Option
-miniBatchSize = 27;
+miniBatchSize = 20;
 options = trainingOptions('adam', ...
     'ExecutionEnvironment','cpu', ...
     'MaxEpochs',100, ...
