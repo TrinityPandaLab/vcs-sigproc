@@ -1,12 +1,12 @@
 %
 clear, clc
-load deepTest
+load trainData
 
 %% Contruct Layer
-numHiddenUnits = 100;
+numHiddenUnits = 128;
 
 layers_1 = [ ...
-       sequenceInputLayer(5)
+       sequenceInputLayer(14)
        bilstmLayer(numHiddenUnits,'OutputMode','last')
        fullyConnectedLayer(6)
        softmaxLayer
@@ -32,3 +32,9 @@ net = trainNetwork(XTrain,YTrain,layers_1,options);
 %% Predict
 YPred = classify(net,XValidation);
 acc = mean(YPred == YValidation)
+
+%% Plot
+figure(2)
+axh = confusionchart(confusionmat(YValidation, YPred));
+axh.Title = "Confusion Matrix (MFCC features)";
+axh.FontSize = 20;

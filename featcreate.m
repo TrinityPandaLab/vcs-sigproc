@@ -27,7 +27,7 @@ load trainData
 clear XTrain YTrain XValidation YValidation
 
 % Split Train and Test set
-test_index = ismember(fn,indices(1:15));
+test_index = ismember(fn,indices(31:60));
 train_index = test_index == 0;
 
 Xtrain = X(:,:,train_index);

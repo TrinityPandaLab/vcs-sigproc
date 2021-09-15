@@ -18,9 +18,9 @@ classdef sigProc
             % Getting rid of the offset
             tran = tran - mean(tran);
             
-            % Linear Normalize
-            maximum = max(max(abs(min(tran)), max(tran)));
-            tran = tran./maximum;
+%             % Linear Normalize
+%             maximum = max(max(abs(min(tran)), max(tran)));
+%             tran = tran./maximum;
             
             %R = vector sum of X and Y
             tran(:,4) = sqrt(T(:,2).^2 + T(:,3).^2);

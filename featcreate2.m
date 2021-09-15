@@ -5,10 +5,11 @@ filespersec = 150;
 for section = 1:6
     for filenum = 1:filespersec
         fileid = filespersec * (section-1) + filenum;
+        [zfreq0, zprom0] = obj{filenum,section}.freqatpeak([30 120]);
         [zfreq5, zprom5] = obj{filenum,section}.freqatpeak([500 550]);
         [zfreq8, zprom8] = obj{filenum,section}.freqatpeak([825 925]);
         phs = phaseSig(obj{filenum, section});
-        featmat(fileid,:) = [filenum, section, phs, zfreq5 , zprom5, zfreq8, zprom8 ];
+        featmat(fileid,:) = [filenum, section, phs, zfreq0, zprom0, zfreq5 , zprom5, zfreq8, zprom8];
     end
 end
 save("featmat2.mat", "featmat")
@@ -28,7 +29,7 @@ load trainData2
 clear XTrain YTrain XValidation YValidation
 
 % Split Train and Test set
-test_index = ismember(fn,indices(1:15));
+test_index = ismember(fn,indices(121:150));
 train_index = test_index == 0;
 
 Xtrain = X(train_index,:);
@@ -49,14 +50,15 @@ YValidation = YValidation(test_r_index);
 
 clear train_size test_size train_r_index test_r_index
 
-% Store as cells
-for ii = 1:size(Xtrain,1)
-    XTrain{ii} = Xtrain(ii,:)';
-end
+% % Store as cells
+% for ii = 1:size(Xtrain,1)
+%     XTrain{ii} = Xtrain(ii,:)';
+% end
+% 
+% for ii = 1:size(Xval,1)
+%     XValidation{ii} = Xval(ii,:)';
+% end
 
-for ii = 1:size(Xval,1)
-    XValidation{ii} = Xval(ii,:)';
-end
-
-clear Xval Xtrain ii
+% clear Xval Xtrain ii
+clear ii
 save trainData2

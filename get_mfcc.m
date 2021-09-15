@@ -37,7 +37,7 @@ clear filenum section
 %% Get Average of features
 featav(:,:) = mean(outav);
 featsd(:,:) = std(outav);
-% save feat_summary
+save ("feat_summary.mat", "featav", "featsd")
 
 
 %% Plot the feats
