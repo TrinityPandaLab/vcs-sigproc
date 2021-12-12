@@ -2,15 +2,13 @@
 clear, clc
 load("trainData.mat", "X", "Y");
 
-for featnum = 1 : 14
-    for section = 1:6
-        temp = X(featnum,:,Y == section);
-        featav(section, featnum) = mean(temp(:));
-        featsd(section, featnum) = std(temp(:));
-    end
+for section = 1:6
+    temp = X(:,:,Y == section);
+    feat{section} = reshape(temp, 14, [])';
 end
 
-save("temp.mat", "featav", "featsd")
+
+save("feat_summary_bean.mat", "feat")
 
 %% Custom
 clear, clc
